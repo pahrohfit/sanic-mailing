@@ -21,11 +21,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://marktennyson.github.io/flask-mailing/future-roadmap/</loc>
-         <lastmod>2022-02-16</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://marktennyson.github.io/flask-mailing/getting-started/</loc>
          <lastmod>2022-02-16</lastmod>
          <changefreq>daily</changefreq>
