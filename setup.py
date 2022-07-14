@@ -44,11 +44,12 @@ setup(
         "pydantic>=1.8.2",
         "email-validator>=1.1.3",
         "typing-extensions>=3.10.0.0",
-        "httpx>=0.21.3",
-        "sanic>=2.0.0"
+        "httpx>=0.23.0",
+        "sanic>=22.6.0",
+        "sanic-ex>=22.6.0"
     ],
     extras_require={},
-    python_requires=">=3.6,<4",
+    python_requires=">=3.10,<4",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
