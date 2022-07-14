@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from typing import Optional
 
-from flask.globals import current_app
+from sanic import Sanic
 from jinja2 import Environment, FileSystemLoader
 from pydantic import BaseSettings as Settings
 from pydantic import DirectoryPath, EmailStr, conint, validator
@@ -41,7 +41,7 @@ class ConnectionConfig(Settings):
         folder = self.MAIL_TEMPLATE_FOLDER
 
         if not folder:
-            template_env = current_app.jinja_env
+            template_env = Sanic.get_app().jinja_env
 
         else:
             template_env: "Environment" = Environment(loader=FileSystemLoader(folder))

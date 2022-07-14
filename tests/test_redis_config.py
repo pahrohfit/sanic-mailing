@@ -1,7 +1,6 @@
 import pytest
 
 
-@pytest.mark.asyncio
 async def test_redis_checker(redis_checker):
 
     redis_checker.TEMP_EMAIL_DOMAINS = []

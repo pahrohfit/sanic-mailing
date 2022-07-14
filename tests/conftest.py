@@ -2,9 +2,10 @@ from pathlib import Path
 
 import fakeredis.aioredis
 import pytest
-from flask import Flask
+from sanic import Sanic, response
+from sanic.exceptions import SanicException
 
-from flask_mailing.utils import DefaultChecker
+from sanic_mailing.utils import DefaultChecker
 
 
 @pytest.fixture
@@ -14,19 +15,7 @@ def default_checker():
     del test
 
 
-# @pytest.fixture
-# @pytest.mark.asyncio
-# async def redis_checker(scope="redis_config"):
-#     test = DefaultChecker(db_provider="redis")
-#     test.redis_client = await aioredis.create_redis_pool(encoding="UTF-8")
-#     await test.init_redis()
-#     yield test
-#     await test.redis_client.flushall()
-#     await test.close_connections()
-
-
 @pytest.fixture
-@pytest.mark.asyncio
 async def redis_checker(scope="redis_config"):
     test = DefaultChecker(db_provider="redis")
     test.redis_client = fakeredis.aioredis.FakeRedis()
@@ -35,7 +24,7 @@ async def redis_checker(scope="redis_config"):
     await test.close_connections()
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture
 def mail_config():
     home: Path = Path(__file__).parent.parent
     html = home / "files"
@@ -58,10 +47,21 @@ def mail_config():
     return env
 
 
-@pytest.fixture(autouse=True)
-def app(mail_config) -> "Flask":
-    app = Flask("test_app")
-    app.secret_key = "top-secret-key"
-    app.testing = True
-    app.config.update(mail_config)
-    return app
+@pytest.fixture
+def app(mail_config) -> Sanic:
+    sanic_app = None
+    try:
+       sanic_app = Sanic(__name__)
+    except SanicException:
+        sanic_app = Sanic.get_app()
+        return sanic_app
+    sanic_app.config.SECRET_KEY = "top-secret-key"
+    sanic_app.config['PYTESTING'] = True
+    sanic_app.config.TESTING = True
+    sanic_app.config.update(mail_config)
+
+    @sanic_app.get("/")
+    def basic(request):
+        return response.text("foo")
+
+    return sanic_app

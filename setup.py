@@ -4,8 +4,8 @@ from setuptools import (
     )
 
 VERSION = (0, 2, 0)
-AUTHOR = "Aniket Sarkar"
-AUTHOR_EMAIL = "aniketsarkar@yahoo.com"
+AUTHOR = "Rob Dailey"
+AUTHOR_EMAIL = "rob@suspected.org"
 
 
 with open("README.md", "r") as f:
@@ -16,22 +16,21 @@ with open("README.md", "r") as f:
 setup(
     name="Flask-Mailing",
     version=".".join([str(i) for i in list(VERSION)]),
-    url="https://github.com/marktennyson/flask-mailing",
+    url="https://github.com/pahrohfit/sanic-mailing",
     license="MIT",
     author=AUTHOR,
     author_email=AUTHOR_EMAIL,
-    description="Flask mail system sending mails(individual, bulk) attachments(individual, bulk) fully asynchroniously",
+    description="Sanic mail system sending mails(individual, bulk) attachments(individual, bulk) fully asynchroniously",
     long_description=long_description,
     long_description_content_type="text/markdown",
     keywords=[
-        "flask",
-        'flask-mail',
-        'flask-mailing',
-        'async-flask',
-        'asynchroniously-send-email-in-flask',
+        "sanic",
+        'sanic-mail',
+        'sanic-mailing',
+        'asynchroniously-send-email-in-sanic',
         'async-mailer',
-        'flask-email',
-        'flask-mailman'
+        'sanic-email',
+        'sanic-mailman'
         ],
     packages=find_packages(),
     include_package_data=True,
@@ -46,7 +45,7 @@ setup(
         "email-validator>=1.1.3",
         "typing-extensions>=3.10.0.0",
         "httpx>=0.21.3",
-        "flask>=2.0.0"
+        "sanic>=2.0.0"
     ],
     extras_require={},
     python_requires=">=3.6,<4",

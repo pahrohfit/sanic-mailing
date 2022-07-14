@@ -1,4 +1,4 @@
-from flask_mailing.config import ConnectionConfig
+from sanic_mailing.config import ConnectionConfig
 
 
 def test_configuration(mail_config):

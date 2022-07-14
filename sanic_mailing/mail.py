@@ -11,14 +11,14 @@ from .msg import MailMsg
 from .schemas import Message
 
 if t.TYPE_CHECKING:
-    from flask import Flask
+    from sanic import Sanic
 
 version_info = (0, 2, 0)
 
 
 class _MailMixin:
 
-    name = "Flask Mailing"
+    name = "Sanic Mailing"
     version = ".".join([str(v) for v in version_info])
 
     @contextmanager
@@ -50,19 +50,20 @@ class _MailMixin:
 
 class Mail(_MailMixin):
     """
-    Flask mail system sending mails(individual, bulk)
+    Sanic mail system sending mails(individual, bulk)
     attachments(individual, bulk).
 
-    :param app: Optional param, the Flask application.
+    :param app: Optional param, the Sanic application.
 
     """
+    extension_name = 'mailing'
 
-    def __init__(self, app: t.Optional["Flask"] = None) -> None:
+    def __init__(self, app: t.Optional["Sanic"] = None) -> None:
 
         if app is not None:
             self.init_app(app)
 
-    def init_app(self, app: "Flask") -> None:
+    def init_app(self, app: "Sanic") -> None:
 
         self.config = ConnectionConfig(
             MAIL_USERNAME=app.config.get("MAIL_USERNAME"),
@@ -82,7 +83,10 @@ class Mail(_MailMixin):
                 app.config.get("MAIL_DEFAULT_SENDER", app.config.get("MAIL_USERNAME")),
             ),
         )
-        app.extensions["mailing"] = self
+
+        if not hasattr(app.ctx, 'extensions'):
+            setattr(app.ctx, 'extensions', {})
+        app.ctx.extensions[self.extension_name] = self
 
     async def get_mail_template(self, env_path, template_name):
         return env_path.get_template(template_name)
@@ -133,7 +137,7 @@ class Mail(_MailMixin):
         @app.get("/email")
         async def simple_send():
             message = Message(
-                subject="Flask-Mailing module",
+                subject="Sanic-Mailing module",
                 recipients=["aniketsarkar@yahoo.com"],
                 body="This is the basic email body",
                 )
@@ -144,7 +148,7 @@ class Mail(_MailMixin):
         if not issubclass(message.__class__, BaseModel):
             raise PydanticClassRequired(
                 """Message schema should be provided from Message class, check example below:
-         \nfrom flask_mailing import Message  \nmessage = Message(\nsubject = "subject",\nrecipients = ["list_of_recipients"],\nbody = "Hello World",\ncc = ["list_of_recipients"],\nbcc = ["list_of_recipients"],\nreply_to = ["list_of_recipients"],\nsubtype = "plain")
+         \nfrom sanic_mailing import Message  \nmessage = Message(\nsubject = "subject",\nrecipients = ["list_of_recipients"],\nbody = "Hello World",\ncc = ["list_of_recipients"],\nbcc = ["list_of_recipients"],\nreply_to = ["list_of_recipients"],\nsubtype = "plain")
          """
             )
 

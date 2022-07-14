@@ -1,38 +1,38 @@
 """
-# ✉️ Flask-Mailing
+# ✉️ Sanic-Mailing
 
-Flask-Mailing adds SMTP mail sending to your Flask applications
+Sanic-Mailing adds SMTP mail sending to your Sanic applications
 
-Flask_Mail is dead now. This is the time to migrate a fully asynchronous 
-based mailer library to send emails while using a Flask based application. 
-Now Flask 2.0 supports the asynchronous view function then who is stopping you to use Flask-Mailing ?
+Sanic_Mail is dead now. This is the time to migrate a fully asynchronous 
+based mailer library to send emails while using a Sanic based application. 
+Now Sanic 2.0 supports the asynchronous view function then who is stopping you to use Sanic-Mailing ?
 
 The key features are:
 
--  Most of the Apis are very familiar with `Flask-Mail` module.
--  sending emails with either with Flask or using asyncio module 
+-  Most of the Apis are very familiar with `Sanic-Mail` module.
+-  sending emails with either with Sanic or using asyncio module 
 -  sending files either from form-data or files from server
 -  Using Jinja2 HTML Templates
 -  email utils (utility allows you to check temporary email addresses, you can block any email or domain)
 -  email utils has two available classes ```DefaultChecker``` and  ```WhoIsXmlApi```
 -  Unittests using Mail
 
-More information on [Getting-Started](https://marktennyson.github.io/flask-mailing/getting-started)
+More information on [Getting-Started](https://marktennyson.github.io/sanic-mailing/getting-started)
 
 # 🔗 Important Links 
 
-#### ❤️ [Github](https://github.com/marktennyson/flask-mailing)    
-#### 📄 [Documentation](https://marktennyson.github.io/flask-mailing)    
-#### 🐍 [PYPI](https://pypi.org/project/flask-mailing)    
+#### ❤️ [Github](https://github.com/marktennyson/sanic-mailing)    
+#### 📄 [Documentation](https://marktennyson.github.io/sanic-mailing)    
+#### 🐍 [PYPI](https://pypi.org/project/sanic-mailing)    
 
 # 🔨 Installation ###
 
 ```bash
- pip install flask-mailing
+ pip install sanic-mailing
 ```
 or install from source code
 ```bash
-git clone https://github.com/marktennyson/flask-mailing.git && cd flask-mailing
+git clone https://github.com/marktennyson/sanic-mailing.git && cd sanic-mailing
 python -m pip install .
 ```
 
@@ -41,11 +41,11 @@ python -m pip install .
 
 ```python
 
-from flask import Flask, jsonify
-from flask_mailing import Mail, Message
+from sanic import Sanic, json
+from sanic_mailing import Mail, Message
 
 
-app = Flask(__name__)
+app = Sanic(__name__)
 
 app.config['MAIL_USERNAME'] = "YourUserName"
 app.config['MAIL_PASSWORD'] = "strong_password"
@@ -59,25 +59,25 @@ app.config['MAIL_DEFAULT_SENDER'] = "youremailid@doaminname.com"
 
 mail = Mail(app)
 
-html = "<p>Thanks for using Flask-Mailing</p> "
+html = "<p>Thanks for using Sanic-Mailing</p> "
 
 @app.post("/email")
 async def simple_send():
 
     message = Message(
-        subject="Flask-Mailing module",
+        subject="Sanic-Mailing module",
         recipients=["recipients@email-domain.com"],  # List of recipients, as many as you can pass 
         body=html,
         subtype="html"
         )
 
     await mail.send_message(message)
-    return jsonify(status_code=200, content={"message": "email has been sent"})     
+    return json(status_code=200, content={"message": "email has been sent"})     
 ```
 
 # 🪜 List of Examples
 
-For more examples of using flask-mailing please check [example](https://marktennyson.github.io/flask-mailing/example/) section
+For more examples of using sanic-mailing please check [example](https://marktennyson.github.io/sanic-mailing/example/) section
 
 # 📝 LICENSE
 

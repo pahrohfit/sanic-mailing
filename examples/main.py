@@ -2,7 +2,7 @@ from dotenv import load_dotenv; load_dotenv()
 
 from flask import jsonify
 from base import create_app
-from flask_mailing import Mail, Message
+from sanic_mailing import Mail, Message
 
 import os as os
 

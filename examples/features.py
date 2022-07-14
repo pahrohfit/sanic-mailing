@@ -1,5 +1,5 @@
 from base import create_app
-from flask_mailing.utils import DefaultChecker
+from sanic_mailing.utils import DefaultChecker
 from flask import jsonify
 
 app = create_app()
@@ -86,7 +86,7 @@ async def del_disp_domain():
 
 
 #WhoIsXmlApi
-from flask_mailing.utils import WhoIsXmlApi
+from sanic_mailing.utils import WhoIsXmlApi
 
 who_is = WhoIsXmlApi(token="Your access token", email="your@mailaddress.com")
 
