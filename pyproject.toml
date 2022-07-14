@@ -1,6 +1,30 @@
+[tool.poetry]
+name = "sanic-mailing"
+version = "0.1.0"
+description = "Sanic mail system for sending mails(individual, bulk) ,attachments(individual, bulk) fully asynchronously."
+authors = ["Rob Dailey <rob@suspected.org>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sanic = "^22.6.0"
+email-validator = "^1.2.1"
+aiosmtplib = "^1.1.6"
+asgiref = "^3.5.2"
+typing-extensions = "^4.3.0"
+aioredis = "^2.0.1"
+httpx = "^0.23.0"
+pydantic = "^1.9.1"
+Jinja2 = "^3.1.2"
+blinker = "^1.4"
+Werkzeug = "^2.1.2"
+sanic-ext = "^22.6.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-asyncio = "^0.18.3"
+fakeredis = "^1.8.1"
+sanic-testing = "^22.6.0"
+
 [build-system]
-requires = [
-    "setuptools>=42",
-    "wheel"
-]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
