@@ -5,7 +5,7 @@ description = "Sanic mail system for sending mails(individual, bulk) ,attachment
 authors = ["Rob Dailey <rob@suspected.org>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.7"
 sanic = "^22.6.0"
 email-validator = "^1.2.1"
 aiosmtplib = "^1.1.6"
